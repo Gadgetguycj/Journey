@@ -1,0 +1,215 @@
+# app/schemas.py
+
+from typing import List, Optional
+from decimal import Decimal
+
+#from sqlalchemy.sql.sqltypes import Boolean
+from pydantic import BaseModel, Field, EmailStr
+
+
+
+
+#Includes name and validation for other schemas
+class BaseSchema(BaseModel):
+    name: str = Field(min_length=2, max_length=255, example="Cool Name")
+    class Config: orm_mode = True
+
+class LocationSearchSchema(BaseSchema):
+    name: Optional[str] = Field(max_length=255, example="Cool Name")
+
+class LocationSchema(BaseSchema):
+    name: Optional[str] = Field(max_length=255, example="Cool Name")
+
+
+#USER SCHEDULE
+
+class ScheduleSchema(BaseModel):
+    user_id: Optional[int] = Field(gt=0, lt=99999999, example=34.56)
+    state: Optional[str] = Field(max_length=32, example="Busy", default="Available")
+    day: Optional[str] = Field(max_length=32, example="Wednesday")
+    schedule_type: int = Field(gt=-1, lt=2, example=0)
+    start_time: Optional[str] = Field(max_length=32, example="9am")
+    end_time: Optional[str] = Field(max_length=32, example="4pm")
+    
+
+class ScheduleSearchSchema(BaseModel):
+    user_id: Optional[int] = Field(gt=0, lt=99999999, example=34.56)
+    schedule_type: Optional[int] = Field(gt=0, lt=1, example=0)
+    state: Optional[str] = Field(max_length=32, example="Busy")
+    day: Optional[str] = Field(max_length=32, example="Wednesday")
+    startTime: Optional[str] = Field(max_length=32, example="9am")
+    endTime: Optional[str] = Field(max_length=32, example="4pm")
+
+#PRODUCTS
+class ProductSchema(BaseSchema):
+    sale_price: Decimal = Field(gt=0, lt=99999999, example=34.56)
+    cost_price: Decimal = Field(gt=0, lt=99999999, example=31.56)
+    quantity: Optional[int] = Field(gt=0, lt=2147483647, example=24345)
+    supplier: Optional[str] = Field(max_length=128, example="Mega Corp")
+    supplier_link: Optional[str] = Field(max_length=256, example="http://coollink.linkr")
+    description: Optional[str] = Field(max_length=2048, example="The coolest product ever made")
+    lead_time: Optional[int] = Field(gt=0, lt=2147483647, example=34)
+    usage: Optional[Decimal] = Field(gt=0, lt=99999999, example=31.56)
+    
+
+class ProductSearchSchema(BaseModel):
+    id: Optional[int] = Field(gt=0, lt=2147483647, example=24345)
+    name: Optional[str] = Field(max_length=255, example="Cool Name")
+    sale_price: Optional[Decimal] = Field(gt=0, lt=99999999, example=39.56)
+    cost_price: Optional[Decimal] = Field(gt=0, lt=99999999, example=31.56)
+    quantity: Optional[int] = Field(gt=0, lt=2147483647, example=24345)
+    usage: Optional[Decimal] = Field(gt=0, lt=99999999, example=39.56)
+    supplier: Optional[str] = Field(max_length=128, example="Mega Corp")
+    supplier_link: Optional[str] = Field(max_length=256, example="http://coollink.linkr")
+    description: Optional[str] = Field(max_length=2048, example="The coolest product ever made")
+    lead_time: Optional[int] = Field(gt=0, lt=2147483647, example=24345)
+    class Config: orm_mode = True
+
+
+#USERS
+class UserSchema(BaseSchema):
+    age: int = Field(gt=0, lt=1000, example=23)
+    email: EmailStr = Field(example="JimboJohnson@Ultracorp.io")
+    phone_number: str = Field(min_length=2, max_length=32, example="245-143-4678")
+    user_type: int = Field(gt=0, lt=1000, example=3)
+    job: str = Field(min_length=2, max_length=255, example="Dirt Inspector")
+    schedule: Optional[List[ScheduleSchema]]
+
+class UserCreateSchema(UserSchema):
+    password: str = Field(min_length=2, max_length=255, example="securitymatterspassword123!")
+    company: int = Field(gt=0, lt=2147483647, example=325)
+
+class UserLoginSchema(BaseModel):
+    email: EmailStr = Field(example="JimboJohnson@UltracorpCorporate.io")
+    password: str = Field(min_length=2, max_length=255, example="badpassword134984&&*")
+
+class UserSearchSchema(BaseModel):
+    name: Optional[str] = Field(min_length=2, max_length=255, example="Cool Name")
+    id: Optional[int] = Field(gt=0, lt=2147483647, example=6587)
+    age: Optional[int] = Field(gt=0, lt=1000, example=23)
+    email: Optional[EmailStr] = Field(example="JimboJohnson@Ultracorp.io")
+    job: Optional[str] = Field(min_length=2, max_length=255, example="Dirt Inspector")
+    phone_number: Optional[str] = Field(min_length=2, max_length=32, example="245-143-4678")
+    user_type: Optional[int] = Field(gt=0, lt=1000, example=3)
+    schedule: Optional[list]
+    class Config: orm_mode = True
+
+
+#COMPANY
+class CompanySchema(BaseSchema):
+    description: Optional[str] = Field(max_length=1024, example="The coolest company around")
+    address: Optional[str] = Field(min_length=2, max_length=255, example="123 space drive, moon nj 08043")
+    email: str = Field(min_length=2, max_length=255, example="jonsmells@jon.com")
+
+class CompanySearchSchema(BaseSchema):
+    id: Optional[int] = Field(gt=0, lt=2147483647, example=6587)
+    description: Optional[str] = Field(max_length=1024, example="The coolest company around")
+    address: Optional[str] = Field(min_length=2, max_length=255, example="123 space drive, moon nj 08043")
+    email: Optional[str] = Field(min_length=2, max_length=255, example="jonsmells@jon.com")
+    class Config: orm_mode = True
+
+#SALES
+class SaleSchema(BaseSchema):
+    value: Decimal = Field(gt=0, lt=999999999, example=34.72)
+    quantity: int = Field(gt=0, lt=2147483647, example=23)
+    products: str = Field(min_length=2, max_length=10000, example="10033,435,5776")
+    timestamp: str = Field(min_length=2, max_length=255, example="8-31-2021 12:41:05")
+    customer: str = Field(min_length=2, max_length=255, example="Big Mikes Apples")
+    location: int = Field(gt=0, lt=2147483647, example=23)
+    profit: Decimal = Field(gt=0, lt=999999999, example=567.55)
+
+class SaleSearchSchema(BaseModel):
+    id: Optional[int] = Field(gt=0, lt=2147483647, example=2456)
+    name: Optional[str] = Field(min_length=2, max_length=255, example="Cool Name")
+    value: Optional[Decimal] = Field(gt=0, lt=999999999, example=34.72)
+    quantity: Optional[int] = Field(gt=0, lt=2147483647, example=23)
+    timestamp: Optional[str] = Field(min_length=2, max_length=255, example="8-31-2021 12:41:05")
+    customer: Optional[str] = Field(min_length=2, max_length=255, example="Big Mikes Apples")
+    location: Optional[int] = Field(gt=0, lt=2147483647, example=78989)
+    profit: Optional[Decimal] = Field(gt=0, lt=999999999, example=567.55)
+    class Config: orm_mode = True
+
+class SaleGetSchema(SaleSchema):
+    id: int = Field(gt=0, lt=2147483647, example=2456)
+
+
+#CUSTOMERS
+class CustomerSchema(BaseSchema):
+    email: EmailStr = Field(example="JimboJohnson@Ultracorp.io")
+    avg_purchase_value: Optional[Decimal] = Field(gt=0, lt=999999999, example=56.55)
+    total_spent: Optional[Decimal] = Field(gt=0, lt=999999999, example=867.55)
+    frequency: Optional[Decimal] = Field(gt=0, lt=999999999, example=64.55)
+    total_visits: Optional[int] = Field(gt=0, lt=2147483647, example=23)
+    phone_number: Optional[str] = Field(min_length=2, max_length=32, example="245-143-4678")
+
+class CustomerSearchSchema(BaseModel):
+    id: Optional[int] = Field(gt=0, lt=2147483647, example=2456)
+    name: Optional[str] = Field(min_length=2, max_length=255, example="Cool Name")
+    email: Optional[EmailStr] = Field(example="JimboJohnson@Ultracorp.io")
+    avg_purchase_value: Optional[Decimal] = Field(gt=0, lt=999999999, example=56.55)
+    total_spent: Optional[Decimal] = Field(gt=0, lt=999999999, example=867.55)
+    frequency: Optional[Decimal] = Field(gt=0, lt=999999999, example=64.55)
+    total_visits: Optional[int] = Field(gt=0, lt=2147483647, example=23)
+    phone_number: Optional[str] = Field(min_length=2, max_length=32, example="245-143-4678")
+    class Config: orm_mode = True
+
+class CustomerGetSchema(CustomerSchema):
+    id: int = Field(gt=0, lt=2147483647, example=2456)
+
+
+
+#Search section ---------------------------------------
+def filter_empty_dict(dict):
+    filtered_dict = {}
+    for (key, value) in dict.items():
+        if value!=None:
+            filtered_dict[key]=value
+    return filtered_dict
+
+#COMPANY
+def search_user(db: Session, user: schemas.user, skip: int = 0, limit: int = 100):
+    search = filter_empty_dict(user.dict())
+    query = db.query(models.user).filter_by(**search).offset(skip).limit(limit).all()
+    return query
+
+#Search section ---------------------------------------
+
+
+
+
+
+
+
+
+
+
+pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+def get_password_hash(password):
+    return pwd.hash(password)
+def check_password_hash(password, password_hashed):
+    return True if pwd.verify(password, password_hashed) else False
+
+def create_user(db: Session, user: schemas.UserCreateSchema):
+
+    if get_user_by_email(db=db, email=user.email) == None:
+        db_user = models.User(**user.dict(exclude_none=True))
+        db_user.password = get_password_hash(user.password)
+        db.add(db_user)
+        db.commit()
+        user_id=get_user_by_email(db=db, email=user.email).id
+    return False
+
+async def add_student(student_data: dict) -> dict:
+    student = await student_collection.insert_one(student_data)
+    new_student = await student_collection.find_one({"_id": student.inserted_id})
+    return student_helper(new_student)
+
+def student_helper(student) -> dict:
+    return {
+        "id": str(student["_id"]),
+        "fullname": student["fullname"],
+        "email": student["email"],
+        "course_of_study": student["course_of_study"],
+        "year": student["year"],
+        "GPA": student["gpa"],
+    }
