@@ -1,7 +1,6 @@
 window.onload = function getName() {
     var name;
     var userData;
-    
     $.ajax({
         "url": "http://journey.gadget.sh:8080/user",
         "method": "GET",
@@ -17,7 +16,6 @@ window.onload = function getName() {
     });
     
     firstname = name.split(" ")
-    firstname = firstname[0];
-    firstname.charAt(0).toUpperCase()
-    document.getElementById("usersName").innerHTML = firstname
+    
+    document.getElementById("usersName").innerHTML = firstname[0]
 }
