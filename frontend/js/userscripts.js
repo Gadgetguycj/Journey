@@ -1,4 +1,4 @@
-function getName() {
+window.onload = function getName() {
     var name;
     var userData;
     
@@ -12,7 +12,7 @@ function getName() {
         },
         "success": function(data){
             name = data.fullname;
-            //console.log(name);
+            console.log(name);
         }
     });
     
