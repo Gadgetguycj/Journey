@@ -42,7 +42,7 @@ window.onload = function addFoodToLog() {
 //        "timeout": 0,
 //        "async": false,
 //        "headers": {
-//        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDE5NjE0MzYsInN1YiI6IjYxYjZiNzIxOTg4ODk0NTQ2ZDk1YmZmNyIsInRpZCI6IjEifQ.vO7NgkrxTs-Bzcwf8DLVfjVnWQt3O1umsl5UUgpTazs",
+//        "Authorization": "Bearer "+localStorage.getItem("token"),
 //        "Content-Type": "application/json"},
 //        
 //        "data": JSON.stringify({
