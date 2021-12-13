@@ -7,7 +7,7 @@ window.onload = function addFoodToLog() {
         "timeout": 0,
         "async": false,
         "headers": {
-        "Authorization": localStorage.getItem("token")
+        "Authorization": "Bearer "+localStorage.getItem("token")
         },
         "success": function(data){
             dataStore = data;
