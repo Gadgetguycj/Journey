@@ -41,7 +41,7 @@ function login(email, password){
 }
 function logout(){
     localStorage.removeItem("token") 
-    window.location.replace("http://journey.gadget.sh/login");
+    window.location.replace("http://journey.gadget.sh/login.html");
 }
 
 function activateCreation(){
