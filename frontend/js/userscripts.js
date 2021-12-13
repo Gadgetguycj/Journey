@@ -1,6 +1,7 @@
 window.onload = function getName() {
     var name;
     var userData;
+    
     $.ajax({
         "url": "http://journey.gadget.sh:8080/user",
         "method": "GET",
@@ -15,7 +16,7 @@ window.onload = function getName() {
         }
     });
     
-    firstname = name.split(" ")
+    firstname = name.split(" ");
     
-    document.getElementById("usersName").innerHTML = firstname[0]
+    document.getElementById("usersName").innerHTML = firstname[0];
 }
