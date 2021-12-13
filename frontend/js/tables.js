@@ -5,7 +5,7 @@ window.onload = function addFoodToLog() {
   var dataStore;
 
     $.ajax({
-        "url": "http://journey.gadget.sh:8080/food?skip="+curPage+"&limit=100",
+        "url": "http://journey.gadget.sh:8080/food",
         "method": "GET",
         "timeout": 0,
         "async": false,
