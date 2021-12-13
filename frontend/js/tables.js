@@ -1,4 +1,4 @@
-function addFoodToLog() {
+window.onload = function addFoodToLog() {
   var table = document.getElementById("food_log");
   var dataStore;
     $.ajax({
@@ -14,29 +14,21 @@ function addFoodToLog() {
             console.log(dataStore[0])
         }
     });
-  
-//  var row = table.insertRow(0);
-//  var cell1 = row.insertCell(0);
-//  var cell2 = row.insertCell(1);
-//  cell1.innerHTML = "NEW CELL1";
-//  cell2.innerHTML = "NEW CELL2";
     
     for(const element of dataStore) {
-        var row = table.insertRow(0);
+        var row = table.insertRow(-1);
         var food = row.insertCell(0);
         var calories = row.insertCell(1);
         var carbs = row.insertCell(2);
         var fats =  row.insertCell(3);
         var proteins =  row.insertCell(4);
+        var button = row.insertCell(5);
         
         food.innerHTML = element.name ;
         calories.innerHTML = element.total_calories + " Kcals";
         carbs.innerHTML = element.total_carbs + " g";
         fats.innerHTML = element.total_fat +" g";
         proteins.innerHTML = element.total_protein + " g";
+        button.innerHtml = "Add" 
     }
-}
-
-function deleteRow() {
-  document.getElementById("food_log").deleteRow(0);
 }
