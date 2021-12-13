@@ -7,7 +7,7 @@ window.onload = function addFoodToLog() {
         "timeout": 0,
         "async": false,
         "headers": {
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDE5NjE0MzYsInN1YiI6IjYxYjZiNzIxOTg4ODk0NTQ2ZDk1YmZmNyIsInRpZCI6IjEifQ.vO7NgkrxTs-Bzcwf8DLVfjVnWQt3O1umsl5UUgpTazs"
+        "Authorization": localStorage.getItem("token")
         },
         "success": function(data){
             dataStore = data;
@@ -29,6 +29,25 @@ window.onload = function addFoodToLog() {
         carbs.innerHTML = element.total_carbs + " g";
         fats.innerHTML = element.total_fat +" g";
         proteins.innerHTML = element.total_protein + " g";
-        button.innerHtml = "Add" 
+        button.innerHTML = '<button onclick="add()">Add</button>';
     }
 }
+
+//function add(){
+//        
+//      var dataStore;
+//    $.ajax({
+//        "url": "http://journey.gadget.sh:8080/foodlog",
+//        "method": "POST",
+//        "timeout": 0,
+//        "async": false,
+//        "headers": {
+//        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDE5NjE0MzYsInN1YiI6IjYxYjZiNzIxOTg4ODk0NTQ2ZDk1YmZmNyIsInRpZCI6IjEifQ.vO7NgkrxTs-Bzcwf8DLVfjVnWQt3O1umsl5UUgpTazs",
+//        "Content-Type": "application/json"},
+//        
+//        "data": JSON.stringify({
+//            
+//        })
+//        }
+//    });
+//}

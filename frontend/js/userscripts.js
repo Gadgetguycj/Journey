@@ -8,7 +8,7 @@ window.onload = function getName() {
         "timeout": 0,
         "async": false,
         "headers": {
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDE5NjE0MzYsInN1YiI6IjYxYjZiNzIxOTg4ODk0NTQ2ZDk1YmZmNyIsInRpZCI6IjEifQ.vO7NgkrxTs-Bzcwf8DLVfjVnWQt3O1umsl5UUgpTazs"
+        "Authorization": localStorage.getItem("token")
         },
         "success": function(data){
             name = data.fullname;
