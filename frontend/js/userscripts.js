@@ -12,7 +12,7 @@ window.onload = function getName() {
         },
         "success": function(data){
             name = data;
-            console.log(name);
+            console.log(data);
         }
     });
     
