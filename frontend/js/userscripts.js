@@ -16,7 +16,7 @@ window.onload = function getName() {
         }
     });
     
-    firstname = name.firstname.split(" ");
+    firstname = name.fullname.split(" ");
     
     document.getElementById("usersName").innerHTML = firstname[0];
 }
