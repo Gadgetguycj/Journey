@@ -1,6 +1,7 @@
 window.onload = function getName() {
     var name;
     var userData;
+    console.log(localStorage.getItem("token"))
     
     $.ajax({
         "url": "http://journey.gadget.sh:8080/user",
@@ -8,7 +9,7 @@ window.onload = function getName() {
         "timeout": 0,
         "async": false,
         "headers": {
-        "Authorization": localStorage.getItem("token")
+        "Authorization": "Bearer " + localStorage.getItem("token")
         },
         "success": function(data){
             name = data.fullname;
