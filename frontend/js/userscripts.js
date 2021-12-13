@@ -17,6 +17,7 @@ window.onload = function getName() {
     });
     
     firstname = name.split(" ")
-    firstname[0] = firstname[0[0]].toUpperCase();
-    document.getElementById("usersName").innerHTML = firstname[0]
+    firstname = firstname[0];
+    firstname.charAt(0).toUpperCase()
+    document.getElementById("usersName").innerHTML = firstname
 }
