@@ -11,12 +11,12 @@ window.onload = function getName() {
         "Authorization": "Bearer " + localStorage.getItem("token")
         },
         "success": function(data){
-            name = data.fullname;
+            name = data;
             console.log(name);
         }
     });
     
-    firstname = name.split(" ");
+    firstname = name.firstname.split(" ");
     
     document.getElementById("usersName").innerHTML = firstname[0];
 }
