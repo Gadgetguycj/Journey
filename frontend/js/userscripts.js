@@ -16,6 +16,7 @@ function getName() {
         }
     });
     
-    console.log(name);
-    document.getElementById("usersName").innerHTML = name
+    firstname = name.split(" ")
+    
+    document.getElementById("usersName").innerHTML = firstname[0]
 }
