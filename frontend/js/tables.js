@@ -29,7 +29,7 @@ window.onload = function addFoodToLog() {
         carbs.innerHTML = element.total_carbs + " g";
         fats.innerHTML = element.total_fat +" g";
         proteins.innerHTML = element.total_protein + " g";
-        button.innerHTML = '<button onclick="add()">Add</button>';
+        button.innerHTML = today;
     }
 }
 
@@ -51,3 +51,10 @@ window.onload = function addFoodToLog() {
 //        }
 //    });
 //}
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '/' + dd + '/' + yyyy;

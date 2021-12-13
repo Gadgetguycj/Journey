@@ -1,7 +1,6 @@
 window.onload = function getName() {
     var name;
     var userData;
-    console.log(localStorage.getItem("token"))
     
     $.ajax({
         "url": "http://journey.gadget.sh:8080/user",
@@ -18,6 +17,6 @@ window.onload = function getName() {
     });
     
     firstname = name.split(" ")
-    
+    firstname[0] = firstname[0].toUpperCase();
     document.getElementById("usersName").innerHTML = firstname[0]
 }
