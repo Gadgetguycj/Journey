@@ -34,16 +34,23 @@ async def login_user(user: LoginUserSchema):
 async def get_user(token=Depends(auth.wrapper)):
     return await retrieve_private_user_data(token["sub"])
 
+# - Get User Calories
+@router.get("/calories")
+async def get_user(token=Depends(auth.wrapper)):
+    info = await retrieve_private_user_data(token["sub"])
+    calories = 10.0462 * info["weight"] + 5.46063 * info["height"] - 5 * info["age"] + 5
+    return  calories
+
 # - Edit User
 @router.patch("")
 async def update_user(user: SearchUserSchema, token=Depends(auth.wrapper)):
-    return await update_user_data(user.dict(), token["sub"])
+    return await update_user_data(user.dict(), str(token["sub"]))
 
 # - Get Specific User
 @router.get("/{user_id}")
-async def get_id_user(token=Depends(auth.wrapper)):
-    if check_auth(token, user):
-        return await retrieve_public_user_data(token["sub"])
+async def get_id_user(user_id, token=Depends(auth.wrapper)):
+    if token["sub"] == user_id:
+        return await retrieve_private_user_data(token["sub"])
     raise HTTPException(status_code=409, detail="User already exists")
 
 

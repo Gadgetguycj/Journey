@@ -1,7 +1,7 @@
 from app import database
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from fastapi import status, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, APIRouter, Body
 from bson.objectid import ObjectId
 import motor.motor_asyncio 
 from passlib.context import CryptContext
@@ -31,8 +31,6 @@ def user_public_data_helper(user) -> dict:
     return{
         "id": str(user["_id"]),
         "fullname": user["fullname"],
-        
-
     }
 
 def user_private_data_helper(user) -> dict:
@@ -88,7 +86,6 @@ async def check_password(email, password):
             return user_lookup
         else:
             raise HTTPException(status_code=401, detail = "Invalid email and/or passowrd")
-
     else:
         raise HTTPException(status_code=401, detail = "Invalid email and/or passowrd")
 
@@ -97,8 +94,10 @@ async def check_password(email, password):
 async def update_user_data(user_data: dict, id: str):
     user_data = filter_empty_dict(user_data)
     user_data = jsonable_encoder(user_data)
+    print(id)
+    print(user_data)
 
-    user_update = await db["users"].update_one({"_id": ObjectId(id)}, ({'$set': user_data}))
+    user_update = await db["users"].update_one({"_id": ObjectId(id)}, {'$set': user_data})
     if user_update:
         raise HTTPException(status_code=202, detail="User Updated")
 

@@ -15,17 +15,18 @@ def check_status():
 #Route Imports
 from app.routers.user import router as UserRouter
 from app.routers.food import router as FoodRouter
+from app.routers.foodlog import router as FoodlogRouter
 
 #Routes
 app.include_router(UserRouter, tags=["user"], prefix="/user")
 app.include_router(FoodRouter, tags=["food"], prefix="/food")
-
-
+app.include_router(FoodlogRouter, tags=["Foodlog"], prefix="/foodlog")
 
 #CORS
 origins = [
     "http://journey.gadget.sh",
-    "http://localhost:3000/"
+    "http://localhost:3000/",
+    "http://localhost"
 ]
 app.add_middleware(
     CORSMiddleware,
