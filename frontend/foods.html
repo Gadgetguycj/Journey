@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Journey Foods List</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" onclick="activateLogin()">Logout</a></li>
+                        <li><a class="dropdown-item" onclick="onclick="logout()"">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -85,10 +85,6 @@
                             </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -104,6 +100,8 @@
                                 Foods
                             </div>
                             <div class="card-body">
+                                <button on>Prev Page</button><button>Next Page</button>
+                                <!-- TODO: Bind foodID to add buttons to make API call-->
                                 <table id="food_log">
                                     <thead>
                                         <tr>
@@ -126,7 +124,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                            <div class="text-muted">Copyright &copy; Journey 2021</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
@@ -147,5 +145,6 @@
         <script src="js/userscripts.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="js/tables.js"></script>
+        <script src="js/auth.js"></script>
     </body>
 </html>

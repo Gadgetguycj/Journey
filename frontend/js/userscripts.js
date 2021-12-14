@@ -1,5 +1,6 @@
 window.onload = function getName() {
     var name;
+    var calories;
     var userData;
     
     $.ajax({
@@ -11,13 +12,26 @@ window.onload = function getName() {
         "Authorization": "Bearer " + localStorage.getItem("token")
         },
         "success": function(data){
-            name = data.fullname;
-            console.log(name);
+            name = data;
+            console.log(data);
         }
     });
     
-    firstname = name.split(" ")
-    firstname = firstname[0];
-    firstname.charAt(0).toUpperCase()
-    document.getElementById("usersName").innerHTML = firstname
+       $.ajax({
+        "url": "http://journey.gadget.sh:8080/user/calories",
+        "method": "GET",
+        "timeout": 0,
+        "async": false,
+        "headers": {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        "success": function(data){
+            calories = data;
+            console.log(data);
+        }
+    });
+    
+    firstname = name.fullname.split(" ");
+    
+    document.getElementById("usersName").innerHTML = firstname[0];
 }
